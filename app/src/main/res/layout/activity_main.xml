@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:name="com.d3if0028.hitungbmi.ui.HitungFragment"
+    android:name="com.d3if0028.hitungbmi.data.SaranFragment"
     tools:viewBindingIgnore="true"
     />
