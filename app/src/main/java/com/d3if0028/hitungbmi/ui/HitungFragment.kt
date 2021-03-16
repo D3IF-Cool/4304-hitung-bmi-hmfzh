@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import com.d3if0028.hitungbmi.R
 import com.d3if0028.hitungbmi.databinding.FragmentHitungBinding
@@ -22,6 +23,11 @@ class HitungFragment : Fragment() {
         }
         binding.btnReset.setOnClickListener{
             resetBmi()
+        }
+        binding.btnSaran.setOnClickListener {view : View ->
+            view.findNavController().navigate(
+                R.id.action_hitungFragment_to_saranFragment
+            )
         }
         return binding.root
     }
@@ -61,6 +67,7 @@ class HitungFragment : Fragment() {
 
         binding.tvTitleBMI.text = getString(R.string.bmi_x, bmi)
         binding.tvKategori.text = getString(R.string.kategori_x,kategori)
+        binding.btnSaran.visibility = View.VISIBLE
 
     }
     // Memngambil data dari kategori
