@@ -63,7 +63,7 @@ class HitungFragment : Fragment() {
         binding.tvKategori.text = getString(R.string.kategori_x,kategori)
 
     }
-
+    // Memngambil data dari kategori
     private fun getKategori(bmi: Float, isMale: Boolean): String {
         val stringRes = if(isMale){
             when{

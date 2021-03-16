@@ -24,6 +24,7 @@ class SaranFragment : Fragment() {
         return binding.root
     }
 
+    // Membuat Data untuk menampilkan saran
     private fun updateUI(kategori: KategoriBmi) {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         when(kategori){
