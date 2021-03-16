@@ -2,10 +2,13 @@
 <fragment
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/myNavHostFragment"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:name="com.d3if0028.hitungbmi.data.SaranFragment"
     tools:viewBindingIgnore="true"
+    app:defaultNavHost="true"
+    app:navGraph="@navigation/navigation"
     />

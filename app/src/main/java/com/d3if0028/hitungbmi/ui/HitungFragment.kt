@@ -64,7 +64,7 @@ class HitungFragment : Fragment() {
 
     }
 
-    private fun getKategori(bmi: Float, isMale: Boolean): Any {
+    private fun getKategori(bmi: Float, isMale: Boolean): String {
         val stringRes = if(isMale){
             when{
                 bmi < 20.5 -> R.string.kurus
@@ -78,7 +78,7 @@ class HitungFragment : Fragment() {
                 else -> R.string.ideal
             }
         }
-        return stringRes
+        return getString(stringRes)
     }
 
 }
