@@ -23,4 +23,8 @@
     <string name="saran_ideal">Pertahankan gaya hidupmu! Tapi jangan kebanyakan gaya karena itu berbahaya.</string>
     <string name="saran_gemuk">Cobalah untuk olahraga lari. Kemanapun boleh, asal tidak lari dari kehidupan.</string>
     <string name="lihat_saran">Lihat Saran</string>
+    <string name="copyright">Hitung BMI merupakan sebuah aplikasi
+        Android untuk menghitung body mass index (BMI) sehingga seseorang dapat mengetahui apakah berat badannya ideal, gemuk atau kurus.
+        \n\nCopyright Muhammad Ilham Hafizha 6706190028 </string>
+    <string name="tentang_aplikasi">Tentang Aplikasi</string>
 </resources>
