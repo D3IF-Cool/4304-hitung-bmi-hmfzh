@@ -1,5 +1,6 @@
  package com.d3if0028.hitungbmi.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
@@ -31,9 +32,34 @@ class HitungFragment : Fragment() {
                 HitungFragmentDirections. actionHitungFragmentToSaranFragment(kategoriBmi)
             )
         }
+        binding.btnShare.setOnClickListener { shareData() }
         setHasOptionsMenu(true)
         return binding.root
     }
+
+    private fun shareData() {
+        val selectedID = binding.radioGroup.checkedRadioButtonId
+        val gender = if (selectedID == R.id.rb_pria)
+            getString(R.string.pria)
+        else
+            getString(R.string.wanita)
+
+        val message = getString(R.string.bagikan_template,
+                binding.etBerat.text,
+                binding.etTinggi.text,
+                gender,
+                binding.tvTitleBMI.text,
+                binding.tvKategori.text
+        )
+
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.setType("text/plain").putExtra(Intent.EXTRA_TEXT, message)
+        if (shareIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(shareIntent)
+        }
+    }
+
+
 
     private fun resetBmi() {
         binding.etBerat.requestFocus()
@@ -70,7 +96,7 @@ class HitungFragment : Fragment() {
 
         binding.tvTitleBMI.text = getString(R.string.bmi_x, bmi)
         binding.tvKategori.text = getString(R.string.kategori_x,kategori)
-        binding.btnSaran.visibility = View.VISIBLE
+        binding.btnGroup.visibility = View.VISIBLE
 
     }
     // Memngambil data dari kategori

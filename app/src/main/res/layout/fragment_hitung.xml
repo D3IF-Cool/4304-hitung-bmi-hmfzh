@@ -37,15 +37,35 @@
             android:id="@+id/btn_saran"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lihat_saran"
-            android:layout_marginStart="16dp"
+
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:visibility="invisible"
+            android:text="@string/lihat_saran"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_share"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_kategori"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/bagikan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_saran"
+            app:layout_constraintTop_toTopOf="@id/btn_saran"/>
+            />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/btn_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="btn_saran,btn_share"
             tools:visibility="visible"
             />
 
