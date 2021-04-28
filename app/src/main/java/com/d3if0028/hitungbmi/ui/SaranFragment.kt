@@ -1,4 +1,4 @@
-package com.d3if0028.hitungbmi.data
+package com.d3if0028.hitungbmi.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.d3if0028.hitungbmi.R
+import com.d3if0028.hitungbmi.data.KategoriBmi
+import com.d3if0028.hitungbmi.ui.SaranFragmentArgs
 import com.d3if0028.hitungbmi.databinding.FragmentSaranBinding
 
 class SaranFragment : Fragment() {

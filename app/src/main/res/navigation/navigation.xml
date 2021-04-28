@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/saranFragment"
-        android:name="com.d3if0028.hitungbmi.data.SaranFragment"
+        android:name="com.d3if0028.hitungbmi.ui.SaranFragment"
         android:label="SaranFragment"
         tools:layout="@layout/fragment_saran">
         <argument
