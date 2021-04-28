@@ -3,24 +3,32 @@
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.d3if0028.hitungbmi.R
 import com.d3if0028.hitungbmi.data.KategoriBmi
 import com.d3if0028.hitungbmi.databinding.FragmentHitungBinding
+import com.d3if0028.hitungbmi.db.BmiDb
 import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
 
 
  class HitungFragment : Fragment() {
-    private val viewModel: HitungViewModel by viewModels()
-    private lateinit var binding: FragmentHitungBinding
 
+     private val viewModel: HitungViewModel by lazy {
+         val db = BmiDb.getInstance(requireContext())
+         val factory = HitungViewModelFactory(db.dao)
+         ViewModelProvider(this, factory).get(HitungViewModel::class.java)
+     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+     private lateinit var binding: FragmentHitungBinding
+
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHitungBinding.inflate(
                 layoutInflater ,container,false)
         binding.btnHitung.setOnClickListener{
@@ -35,7 +43,7 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getNavigasi().observe(viewLifecycleOwner, {
@@ -52,9 +60,15 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
             binding.btnGroup.visibility = View.VISIBLE
         })
 
-    }
+         viewModel.data.observe(viewLifecycleOwner, {
+             if (it == null) return@observe
+             Log.d("HitungFragment", "Data tersimpan. ID = ${it.id}")
+            }
+         )
 
-    private fun shareData() {
+     }
+
+     private fun shareData() {
         val selectedID = binding.radioGroup.checkedRadioButtonId
         val gender = if (selectedID == R.id.rb_pria)
             getString(R.string.pria)
@@ -76,7 +90,7 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
         }
     }
 
-    private fun resetBmi() {
+     private fun resetBmi() {
         binding.etBerat.requestFocus()
         binding.etBerat.text.clear()
         binding.etTinggi.text.clear()
@@ -84,7 +98,7 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
         binding.rbWanita.isChecked = false
     }
 
-    private fun hitungBmi() {
+     private fun hitungBmi() {
         val berat = binding.etBerat.text.toString()
         if (TextUtils.isEmpty(berat)){
             Toast.makeText(context, R.string.berat_invalid, Toast.LENGTH_SHORT).show()
@@ -109,21 +123,21 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
 
     }
     // Memngambil data dari kategori
-    private fun getKategori(kategori: KategoriBmi): String {
+     private fun getKategori(kategori: KategoriBmi): String {
         val stringRes = when (kategori) {
             KategoriBmi.KURUS -> R.string.kurus
             KategoriBmi.IDEAL -> R.string.ideal
             KategoriBmi.GEMUK -> R.string.gemuk
         }
         return getString(stringRes)
-    }
+     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.option_menu,menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.menu_about){
             findNavController().navigate(
                     R.id.action_hitungFragment_to_aboutFragment
