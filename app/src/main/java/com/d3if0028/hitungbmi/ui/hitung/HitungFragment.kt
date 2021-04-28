@@ -59,13 +59,6 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
             binding.tvKategori.text = getString(R.string.kategori_x, getKategori(it.kategori))
             binding.btnGroup.visibility = View.VISIBLE
         })
-
-         viewModel.data.observe(viewLifecycleOwner, {
-             if (it == null) return@observe
-             Log.d("HitungFragment", "Data tersimpan. ID = ${it.id}")
-            }
-         )
-
      }
 
      private fun shareData() {
@@ -138,12 +131,17 @@ import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
     }
 
      override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.menu_about){
-            findNavController().navigate(
-                    R.id.action_hitungFragment_to_aboutFragment
-            )
-            return true
-        }
+
+         when(item.itemId) {
+             R.id.menu_histori -> {
+                 findNavController().navigate (R.id.action_hitungFragment_to_historiFragment)
+                 return true
+             }
+             R.id.menu_about -> {
+                 findNavController().navigate (R.id.action_hitungFragment_to_aboutFragment)
+                 return true
+             }
+         }
         return super.onOptionsItemSelected(item)
     }
 }

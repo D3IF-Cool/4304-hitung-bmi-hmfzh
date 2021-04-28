@@ -38,5 +38,8 @@ public class HitungFragmentDirections private constructor() {
 
     public fun actionHitungFragmentToAboutFragment(): NavDirections =
         ActionOnlyNavDirections(R.id.action_hitungFragment_to_aboutFragment)
+
+    public fun actionHitungFragmentToHistoriFragment(): NavDirections =
+        ActionOnlyNavDirections(R.id.action_hitungFragment_to_historiFragment)
   }
 }

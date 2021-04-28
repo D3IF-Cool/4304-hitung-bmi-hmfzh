@@ -12,6 +12,8 @@ import java.lang.Exception;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 @SuppressWarnings({"unchecked", "deprecation"})
@@ -54,12 +56,12 @@ public final class BmiDao_Impl implements BmiDao {
   }
 
   @Override
-  public LiveData<BmiEntity> getLastBmi() {
-    final String _sql = "SELECT * FROM bmi ORDER BY id DESC LIMIT 1";
+  public LiveData<List<BmiEntity>> getLastBmi() {
+    final String _sql = "SELECT * FROM bmi ORDER BY id DESC";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
-    return __db.getInvalidationTracker().createLiveData(new String[]{"bmi"}, false, new Callable<BmiEntity>() {
+    return __db.getInvalidationTracker().createLiveData(new String[]{"bmi"}, false, new Callable<List<BmiEntity>>() {
       @Override
-      public BmiEntity call() throws Exception {
+      public List<BmiEntity> call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
         try {
           final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
@@ -67,8 +69,9 @@ public final class BmiDao_Impl implements BmiDao {
           final int _cursorIndexOfBerat = CursorUtil.getColumnIndexOrThrow(_cursor, "berat");
           final int _cursorIndexOfTinggi = CursorUtil.getColumnIndexOrThrow(_cursor, "tinggi");
           final int _cursorIndexOfIsMale = CursorUtil.getColumnIndexOrThrow(_cursor, "isMale");
-          final BmiEntity _result;
-          if(_cursor.moveToFirst()) {
+          final List<BmiEntity> _result = new ArrayList<BmiEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final BmiEntity _item;
             final long _tmpId;
             _tmpId = _cursor.getLong(_cursorIndexOfId);
             final long _tmpTanggal;
@@ -81,9 +84,8 @@ public final class BmiDao_Impl implements BmiDao {
             final int _tmp;
             _tmp = _cursor.getInt(_cursorIndexOfIsMale);
             _tmpIsMale = _tmp != 0;
-            _result = new BmiEntity(_tmpId,_tmpTanggal,_tmpBerat,_tmpTinggi,_tmpIsMale);
-          } else {
-            _result = null;
+            _item = new BmiEntity(_tmpId,_tmpTanggal,_tmpBerat,_tmpTinggi,_tmpIsMale);
+            _result.add(_item);
           }
           return _result;
         } finally {
