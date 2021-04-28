@@ -1,4 +1,4 @@
-package com.d3if0028.hitungbmi.ui
+package com.d3if0028.hitungbmi.ui.hitung
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,10 @@ import com.d3if0028.hitungbmi.data.HasilBmi
 import com.d3if0028.hitungbmi.data.KategoriBmi
 
 class HitungViewModel : ViewModel() {
+
     private val hasilBmi = MutableLiveData<HasilBmi?>()
+
+    private val navigasi = MutableLiveData<KategoriBmi?>()
 
     fun hitungBmi(berat: String, tinggi: String, isMale: Boolean) {
         val tinggiCm = tinggi.toFloat() / 100
@@ -27,5 +30,16 @@ class HitungViewModel : ViewModel() {
         }
         hasilBmi.value = HasilBmi(bmi, kategori)
     }
+
+    fun mulaiNavigasi() {
+        navigasi.value = hasilBmi.value?.kategori
+    }
+
+    fun selesaiNavigasi() {
+        navigasi.value = null
+    }
+
     fun getHasilBmi() : LiveData<HasilBmi?> = hasilBmi
+
+    fun getNavigasi() : LiveData<KategoriBmi?> = navigasi
 }

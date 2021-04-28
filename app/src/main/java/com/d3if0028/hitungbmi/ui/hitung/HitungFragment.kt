@@ -1,4 +1,4 @@
- package com.d3if0028.hitungbmi.ui
+ package com.d3if0028.hitungbmi.ui.hitung
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.d3if0028.hitungbmi.R
 import com.d3if0028.hitungbmi.data.KategoriBmi
 import com.d3if0028.hitungbmi.databinding.FragmentHitungBinding
+import com.d3if0028.hitungbmi.ui.hitung.HitungFragmentDirections
 
 
-class HitungFragment : Fragment() {
+ class HitungFragment : Fragment() {
     private val viewModel: HitungViewModel by viewModels()
     private lateinit var binding: FragmentHitungBinding
-    private lateinit var kategoriBmi: KategoriBmi
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHitungBinding.inflate(
@@ -28,11 +29,7 @@ class HitungFragment : Fragment() {
         binding.btnReset.setOnClickListener{
             resetBmi()
         }
-        binding.btnSaran.setOnClickListener {view : View ->
-            view.findNavController().navigate(
-                HitungFragmentDirections. actionHitungFragmentToSaranFragment(kategoriBmi)
-            )
-        }
+        binding.btnSaran.setOnClickListener { viewModel.mulaiNavigasi() }
         binding.btnShare.setOnClickListener { shareData() }
         setHasOptionsMenu(true)
         return binding.root
@@ -40,6 +37,13 @@ class HitungFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getNavigasi().observe(viewLifecycleOwner, {
+            if (it == null) return@observe
+            findNavController().navigate(HitungFragmentDirections
+                    .actionHitungFragmentToSaranFragment(it))
+            viewModel.selesaiNavigasi()
+        })
 
         viewModel.getHasilBmi().observe(viewLifecycleOwner,{
             if (it == null) return@observe

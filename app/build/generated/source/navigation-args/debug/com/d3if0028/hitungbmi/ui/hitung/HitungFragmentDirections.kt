@@ -1,4 +1,4 @@
-package com.d3if0028.hitungbmi.ui
+package com.d3if0028.hitungbmi.ui.hitung
 
 import android.os.Bundle
 import android.os.Parcelable
